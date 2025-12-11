@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './providers/database.provider';
 import { RateLimitProvider } from './providers/rate-limit.provider';
 import { JwtAuthGuard } from './securities/jwt.guard';
+import { PermissionsGuard } from './securities/permissions.guard';
 import { ThrottlerConfigService } from './services/throller-config.service';
 import { AuthModule } from './modules/auth.module';
 import { UmModule } from './modules/um.module';
@@ -40,6 +41,10 @@ import { UmModule } from './modules/um.module';
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionsGuard,
     },
   ],
 })

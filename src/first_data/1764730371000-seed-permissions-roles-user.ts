@@ -15,6 +15,10 @@ export class SeedPermissionsRolesUser1764730371000 implements MigrationInterface
             { id: ulid(), name: 'create_roles', slug: 'create-roles', displayName: 'Create Roles', description: 'Can create roles', category: 'all_management', isActive: 1 },
             { id: ulid(), name: 'edit_roles', slug: 'edit-roles', displayName: 'Edit Roles', description: 'Can edit roles', category: 'all_management', isActive: 1 },
             { id: ulid(), name: 'delete_roles', slug: 'delete-roles', displayName: 'Delete Roles', description: 'Can delete roles', category: 'all_management', isActive: 1 },
+            { id: ulid(), name: 'view_permissions', slug: 'view-permissions', displayName: 'View Permissions', description: 'Can view permissions', category: 'all_management', isActive: 1 },
+            { id: ulid(), name: 'create_permissions', slug: 'create-permissions', displayName: 'Create Permissions', description: 'Can create permissions', category: 'all_management', isActive: 1 },
+            { id: ulid(), name: 'edit_permissions', slug: 'edit-permissions', displayName: 'Edit Permissions', description: 'Can edit permissions', category: 'all_management', isActive: 1 },
+            { id: ulid(), name: 'delete_permissions', slug: 'delete-permissions', displayName: 'Delete Permissions', description: 'Can delete permissions', category: 'all_management', isActive: 1 },
         ];
 
         for (const perm of permissions) {
@@ -26,14 +30,11 @@ export class SeedPermissionsRolesUser1764730371000 implements MigrationInterface
 
         // 2. Create Roles
         const superAdminRoleId = ulid();
-        const userRoleId = ulid();
-
         await queryRunner.query(`
             INSERT INTO roles (id, name, slug, description, color, sortOrder, isActive, isSystem)
             VALUES 
-            (?, 'Super Admin', 'super-admin', 'Super Administrator with full access', 'red', 1, 1, 1),
-            (?, 'User', 'user', 'Standard User', 'blue', 2, 1, 0)
-        `, [superAdminRoleId, userRoleId]);
+            (?, 'Super Admin', 'super-admin', 'Super Administrator with full access', 'red', 1, 1, 1)
+        `, [superAdminRoleId]);
 
         // 3. Assign Permissions to Super Admin Role
         // Assign all created permissions to Super Admin
@@ -47,11 +48,11 @@ export class SeedPermissionsRolesUser1764730371000 implements MigrationInterface
         // 4. Create User
         const userId = ulid();
         const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash('Gi985042gih@', salt); // Default password: 
+        const hashedPassword = await bcrypt.hash('', salt); // Default password: 
 
         await queryRunner.query(`
             INSERT INTO users (id, username, email, password, firstName, lastName, status, isEmailVerified)
-            VALUES (?, 'devapps', 'devapps@example.com', ?, 'Gigih', 'Santoso', 'active', 1)
+            VALUES (?, 'devapps', 'devapps@example.com', ?, '', '', 'active', 1)
         `, [userId, hashedPassword]);
 
         // 5. Assign Role to User

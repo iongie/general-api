@@ -91,6 +91,17 @@ export class um_UserService {
         return user;
     }
 
+    async findByIdWithPermissions(id: string): Promise<um_UserEntity> {
+        const user = await this.userRepository.findOne({
+            where: { id },
+            relations: ['roles', 'roles.permissions']
+        });
+        if (!user) {
+            throw new NotFoundException(`User with ID ${id} not found`);
+        }
+        return user;
+    }
+
     async update(id: string, updateUserDto: UpdateUserDto): Promise<um_UserEntity> {
         const user = await this.findOne(id);
         const { roleIds, password, ...userData } = updateUserDto;
