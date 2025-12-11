@@ -64,10 +64,10 @@ export class SeedPermissionsRolesUser1764730371000 implements MigrationInterface
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         // Delete in reverse order
-        await queryRunner.query(`DELETE FROM user_roles WHERE userId IN (SELECT id FROM users WHERE username = 'admin')`);
-        await queryRunner.query(`DELETE FROM users WHERE username = 'admin'`);
-        await queryRunner.query(`DELETE FROM role_permissions WHERE roleId IN (SELECT id FROM roles WHERE slug IN ('super-admin', 'user'))`);
-        await queryRunner.query(`DELETE FROM roles WHERE slug IN ('super-admin', 'user')`);
+        await queryRunner.query(`DELETE FROM user_roles WHERE userId IN (SELECT id FROM users WHERE username = 'devapps')`);
+        await queryRunner.query(`DELETE FROM role_permissions WHERE roleId IN (SELECT id FROM roles WHERE slug IN ('super-admin'))`);
+        await queryRunner.query(`DELETE FROM users WHERE username = 'devapps'`);
+        await queryRunner.query(`DELETE FROM roles WHERE slug IN ('super-admin')`);
         await queryRunner.query(`DELETE FROM permissions WHERE category = 'all_management'`);
     }
 }
