@@ -3,7 +3,7 @@ import { CoreEntity } from './core.entity';
 import { um_RoleEntity } from './um_role.entity';
 
 export enum PermissionCategory {
-  ALL_Management = 'all_management',
+  USER_MANAGEMENT = 'user_management',
 }
 
 @Entity('permissions')
