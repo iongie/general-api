@@ -63,6 +63,9 @@ export class um_UserEntity extends CoreEntity {
   @Column({ nullable: true })
   resetPasswordExpiry?: Date;
 
+  @Column({ nullable: true })
+  hashedRefreshToken?: string;
+
   @ManyToMany(() => um_RoleEntity, role => role.users)
   @JoinTable({
     name: 'user_roles',

@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth.module';
 import { um_UserEntity } from '../entities/um_user.entity';
@@ -10,6 +11,7 @@ import { um_PermissionController } from '../controllers/um_permission.controller
 import { um_UserService } from '../services/um_user.service';
 import { um_RoleService } from '../services/um_role.service';
 import { um_PermissionService } from '../services/um_permission.service';
+import { PermissionsGuard } from '../securities/permissions.guard';
 
 @Module({
     imports: [
@@ -29,6 +31,10 @@ import { um_PermissionService } from '../services/um_permission.service';
         um_UserService,
         um_RoleService,
         um_PermissionService,
+        {
+            provide: APP_GUARD,
+            useClass: PermissionsGuard,
+        },
     ],
     exports: [
         um_UserService,
