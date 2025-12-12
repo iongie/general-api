@@ -8,17 +8,16 @@ export enum ActivityType {
   DELETE = 'delete',
   LOGIN = 'login',
   LOGOUT = 'logout',
-  VIEW = 'view',
   DOWNLOAD = 'download',
   UPLOAD = 'upload',
   EXPORT = 'export',
-  IMPORT = 'import'
+  IMPORT = 'import',
 }
 
 export enum ActivityStatus {
   SUCCESS = 'success',
   FAILED = 'failed',
-  PENDING = 'pending'
+  PENDING = 'pending',
 }
 
 @Entity('activity_logs')
@@ -26,7 +25,11 @@ export class sm_ActivityLogEntity extends CoreEntity {
   @Column({ type: 'enum', enum: ActivityType })
   type: ActivityType;
 
-  @Column({ type: 'enum', enum: ActivityStatus, default: ActivityStatus.SUCCESS })
+  @Column({
+    type: 'enum',
+    enum: ActivityStatus,
+    default: ActivityStatus.SUCCESS,
+  })
   status: ActivityStatus;
 
   @Column()
@@ -59,7 +62,9 @@ export class sm_ActivityLogEntity extends CoreEntity {
   @Column({ nullable: true })
   errorMessage: string;
 
-  @ManyToOne(() => um_UserEntity, user => user.activityLogs, { nullable: true })
+  @ManyToOne(() => um_UserEntity, (user) => user.activityLogs, {
+    nullable: true,
+  })
   @JoinColumn({ name: 'userId' })
   user: um_UserEntity;
 }
